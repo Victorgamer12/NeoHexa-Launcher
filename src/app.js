@@ -6,15 +6,49 @@
 const { app, ipcMain, nativeTheme } = require('electron');
 const { Microsoft } = require('minecraft-java-core');
 const { autoUpdater } = require('electron-updater')
-
 const path = require('path');
 const fs = require('fs');
-const Store = require('electron-store');
-
-Store.initRenderer();
+const RPC = require('discord-rpc');
 
 const UpdateWindow = require("./assets/js/windows/updateWindow.js");
 const MainWindow = require("./assets/js/windows/mainWindow.js");
+
+const CLIENT_ID = '1458229590253109278';
+RPC.register(CLIENT_ID);
+
+const rpc = new RPC.Client({ transport: 'ipc' });
+
+let currentInstance = 'Sin seleccionar';
+let currentPanel = 'home';
+
+async function setActivity(instanceName = currentInstance, panelName = currentPanel) {
+    if (!rpc) return;
+
+    let details = 'En el menú principal';
+    if (panelName === 'settings') {
+        details = 'Configurando Launcher';
+    } else if (panelName === 'login') {
+        details = 'En el login';
+    }
+
+    rpc.setActivity({
+        startTimestamp: new Date(),
+        largeImageKey: 'launcher_logo',
+        largeImageText: 'NeoHexa Launcher',
+        smallImageKey: 'icon',
+        smallImageText: 'Preparándome para jugar',
+        details: details,
+        state: `Jugando: ${instanceName}`,
+        instance: true,
+    });
+}
+
+rpc.on('ready', () => {
+    console.log('Rich Presence conectado.');
+    setActivity();
+});
+
+rpc.login({ clientId: CLIENT_ID }).catch(console.error);
 
 let dev = process.env.NODE_ENV === 'dev';
 
@@ -73,7 +107,21 @@ ipcMain.handle('is-dark-theme', (_, theme) => {
     return nativeTheme.shouldUseDarkColors;
 })
 
+ipcMain.on('instance-changed', (event, data) => {
+    currentInstance = data.instanceName;
+    setActivity(currentInstance, currentPanel);
+    console.log(`Instancia cambió a: ${currentInstance}`);
+})
+
+ipcMain.on('panel-changed', (event, data) => {
+    currentPanel = data.panelName;
+    setActivity(currentInstance, currentPanel);
+    console.log(`Panel cambió a: ${currentPanel}`);
+})
+
 app.on('window-all-closed', () => app.quit());
+
+ 
 
 autoUpdater.autoDownload = false;
 

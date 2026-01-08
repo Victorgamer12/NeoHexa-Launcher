@@ -1,61 +1,36 @@
 <div class="container">
     <div class="status-server">
-        <img class="server-status-icon" src="assets/images/icon/icon.png">
+        <img class="server-status-icon" src="assets/images/icon.png">
         <div class="server-status-infos">
-            <div class="server-status-name">Minecraft</div>
-            <div class="server-status-text">operationeel - 0 ms</div>
-        </div>
-        <div class="status-player-count">
-            <div class="player-count">0</div>
+            <div class="server-status-name">Hexacore Studio</div>
         </div>
     </div>
 
-    <div class="home-bottom">
-        <div class="new-tab">
-            <div class="titre-tab-new">Actualités</div>
-            <div class="news-list content-scroll"></div>
+    <div class="play-elements">
+        <div class="instance-select-btn">
+            <button class="instance-select-icon">＋</button>
         </div>
-        <div class="social-tab">
-            <div class="social-list content-scroll">
-                <div data-url="https://discord.gg/e9q7Yr2cuQ" class="social-block">
-                    <div class="icon-discord icon-social"></div>
+        <div class="play-instance">
+            <button class="play-btn">Play</button>
+        </div>
+        <div class="settings-btn-right">
+            <button class="settings-btn-icon icon-settings"></button>
+        </div>
+        <div class="info-starting-game">
+            <!-- 🔹 NUEVO RECUADRO DE INICIO 🔹 -->
+            <div class="starting-box">
+                <!-- Columna izquierda: texto + progreso -->
+                <div class="starting-left">
+                    <div class="starting-title">INICIANDO MINECRAFT...</div>
+                    <div class="info-starting-game-text">Conectando...</div>
+                    <progress value="0" max="0" class="progress-bar"></progress>
                 </div>
 
-                <div data-url="https://github.com/luuxis" class="social-block">
-                    <div class="icon-github icon-social"></div>
-                </div>
-
-                <div data-url="https://www.youtube.com/LuuxisHD" class="social-block">
-                    <div class="icon-youtube icon-social"></div>
+                <!-- Columna derecha: imagen grande -->
+                <div class="starting-right">
+                    <img class="starting-icon-big" src="assets/images/icon.png" alt="Loading Icon">
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="sidebar">
-        <div class="player-options">
-            <div class="player-head"></div>
-        </div>
-
-        <div class="play-elements">
-            <div class="play-instance">
-                <button class="play-btn">Jouer</button>
-                <div class="instance-select icon-arrow"></div>
-            </div>
-            <div class="info-starting-game">
-                <div class="info-starting-game-text">Connexion...</div>
-                <progress value="0" max="0" class="progress-bar"></progress>
-            </div>
-        </div>
-
-        <div class="settings-btn icon-settings"></div>
-    </div>
-
-    <div class="instance-popup">
-        <div class="instances-tab">
-            <div class="close-popup icon-close"></div>
-            <p>Choisissez votre instance...</p>
-            <div class="instances-List"></div>
         </div>
     </div>
 </div>
